@@ -1,10 +1,8 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Box, CardActionArea, CardActions, Chip, Divider, Grid } from "@mui/material";
-import Rating from "@mui/material/Rating";
+import {  CardActionArea, CardActions, Chip, Divider, Grid } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { NavLink } from "react-router-dom";
 import Skeleton from 'react-loading-skeleton';
@@ -14,7 +12,7 @@ const ViewDoctors = () => {
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    fetch("http://localhost:5000/approvedDoctors")
+    fetch("http://localhost:5000/doctors")
       .then((res) => res.json())
       .then((data) => {
         setDoctors(data);
@@ -88,8 +86,9 @@ const ViewDoctors = () => {
             gap: "1rem",
           }}
         >
-          {doctors.map((doctor) => (
+          {doctors.map((doctor, index) => (
             <NavLink
+            key={index}
               to={"/addPatient/" + doctor.email}
               style={{
                 textDecoration: "none",

@@ -1,23 +1,13 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { NavLink } from "react-router-dom";
-import { Typography } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from "@mui/material";
+import "./Appointment.css";
+import img from "../../utils/no-patient.png";
 import { AiOutlineDelete } from "react-icons/ai";
-import img from "../../../utils/no-patient.png";
+import { NavLink } from "react-router-dom";
 
-export default function PatientViewDoctor() {
- 
-
+const Appointment = () => {
   const [patientsData, setpatientsData] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-
   React.useEffect(() => {
     fetch("http://localhost:5000/appointments")
       .then((res) => res.json())
@@ -68,7 +58,7 @@ export default function PatientViewDoctor() {
                         </TableCell>
                         <TableCell align="center">Doctor Name</TableCell>
                         <TableCell align="center">Fee</TableCell>
-                        <TableCell align="center">Patient's Phone</TableCell>
+                        <TableCell align="center">{"Patient's Phone"}</TableCell>
                         <TableCell align="center">Appointment Date</TableCell>
                         <TableCell align="center">Gender</TableCell>
                         <TableCell align="center">Action</TableCell>
@@ -88,11 +78,11 @@ export default function PatientViewDoctor() {
                           >
                             {patientsData.patientName}
                           </TableCell>
-                          <TableCell align="center">{patientsData.doctorName}</TableCell>
-                          <TableCell align="center">{patientsData.doctorFee}</TableCell>
-                          <TableCell align="center">{patientsData.phone}</TableCell>
-                          <TableCell align="center">{patientsData.date}</TableCell>
-                          <TableCell align="center">{patientsData.gender.toUpperCase()}</TableCell>
+                          <TableCell align="center">{patientsData?.doctorName}</TableCell>
+                          <TableCell align="center">{patientsData?.doctorFee}</TableCell>
+                          <TableCell align="center">{patientsData?.phone}</TableCell>
+                          <TableCell align="center">{patientsData?.date}</TableCell>
+                          <TableCell align="center">{patientsData?.gender?.toUpperCase()}</TableCell>
                           <TableCell align="center"><AiOutlineDelete onClick={() => {
                             deletePatient(patientsData._id)
                           }
@@ -135,3 +125,5 @@ export default function PatientViewDoctor() {
     </TableContainer>
   );
 }
+
+export default Appointment
